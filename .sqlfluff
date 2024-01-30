@@ -1,0 +1,31 @@
+[sqlfluff]
+templater = dbt
+dialect = snowflake
+max_line_length = 120
+
+[sqlfluff:templater:jinja]
+apply_dbt_builtins = True
+
+[sqlfluff:templater:dbt]
+project_dir = dbt/
+profiles_dir = dbt/profiles
+
+[sqlfluff:rules:capitalisation.identifiers]
+extended_capitalisation_policy = lower
+unquoted_identifiers_policy = all
+
+[sqlfluff:rules:capitalisation.functions]
+extended_capitalisation_policy = lower
+
+[sqlfluff:rules:capitalisation.keywords]
+capitalisation_policy = lower
+
+[sqlfluff:rules:capitalisation.types]
+extended_capitalisation_policy = lower
+
+[sqlfluff:rules:references.keywords]
+unquoted_identifiers_policy = aliases
+quoted_identifiers_policy = none
+
+# A comma separated list of keywords to ignore, feel free to add more as we discover them
+ignore_words = location

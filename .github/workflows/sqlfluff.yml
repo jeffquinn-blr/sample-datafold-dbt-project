@@ -1,0 +1,31 @@
+name: SQLFluff
+on:
+  pull_request:
+    paths:
+      - dbt/**
+  push:
+    branches:
+      - main
+jobs:
+  lint-models:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: "actions/checkout@v2"
+      - uses: "actions/setup-python@v2"
+        with:
+            python-version: "3.11"
+      - name: Install SQLFluff
+        run: "pip install -r requirements-dbt.txt"
+      - name: Setup DBT Project
+        run: "cd dbt && dbt deps --profiles-dir ./profiles"
+      - name: Lint models
+        run: "sqlfluff lint dbt/models"
+        env:
+          DBT_USER: ${{ secrets.DBT_USER }}
+          DBT_PASSWORD: ${{ secrets.DBT_PASSWORD }}
+          DBT_DATABASE: ${{ secrets.DBT_DATABASE }}
+          DBT_SCHEMA: ${{ secrets.DBT_SCHEMA }}
+          DBT_WAREHOUSE: ${{ secrets.DBT_WAREHOUSE }}
+          DBT_SNOWFLAKE_ACCOUNT: ${{ secrets.DBT_SNOWFLAKE_ACCOUNT }}
+          DBT_PROFILES_DIR: "${{ github.workspace }}/dbt/profiles"
+          DBT_ROLE: ${{ secrets.DBT_ROLE }}

@@ -1,0 +1,32 @@
+name: Check DBT Models
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+jobs:
+  dbt_test:
+    concurrency: test_database
+    env:
+      DBT_DATABASE: ${{ secrets.DBT_DATABASE }}
+      DBT_SCHEMA: ${{ secrets.DBT_SCHEMA }}
+      DBT_WAREHOUSE: ${{ secrets.DBT_WAREHOUSE }}
+      DBT_PROFILES_DIR: "${{ github.workspace }}/dbt/profiles"
+      DBT_ROLE: ${{ secrets.DBT_ROLE }}
+      DBT_USER: ${{ secrets.DBT_USER }}
+      DBT_PASSWORD: ${{ secrets.DBT_PASSWORD }}
+      DBT_SNOWFLAKE_ACCOUNT: ${{ secrets.DBT_SNOWFLAKE_ACCOUNT }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: "actions/setup-python@v2"
+        with:
+            python-version: "3.11"
+      - name: Install dependencies
+        run: "pip install -r requirements-dbt.txt"
+      - name: Run DBT test
+        working-directory: ./dbt
+        run: |
+          dbt deps --profiles-dir ./profiles
+          dbt compile --profiles-dir ./profiles
