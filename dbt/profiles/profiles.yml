@@ -1,4 +1,4 @@
-sample-datafold-dbt-project:
+sample_datafold_dbt_project:
   target: prod
   outputs:
     prod:
