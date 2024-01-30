@@ -1,4 +1,4 @@
-name: sample-datafold-dbt-project
+name: sample_datafold_dbt_project
 version: "1.0.0"
 config-version: 2
 
@@ -17,4 +17,4 @@ clean-targets:
 on-run-start:
     - '{{create_udfs()}}'
 
-profile: sample-datafold-dbt-project
+profile: sample_datafold_dbt_project
