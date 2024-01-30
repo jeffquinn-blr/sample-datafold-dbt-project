@@ -30,3 +30,10 @@ jobs:
         run: |
           dbt deps --profiles-dir ./profiles
           dbt compile --profiles-dir ./profiles
+      - name: Install Datafold SDK
+        run: pip install -q datafold-sdk
+      - name: Upload dbt artifacts to Datafold
+        run: datafold dbt upload --ci-config-id <datafold_ci_config_id> --run-type production --commit-sha ${GIT_SHA}
+        env:
+          DATAFOLD_APIKEY: ${{ secrets.DATAFOLD_APIKEY }}
+          GIT_SHA: "${{ github.sha }}"
