@@ -1,1 +1,8 @@
-sources: []
+sources: [version: 2
+
+sources:
+  - name: default
+    database: test
+    schema: public
+    tables:
+      - name: data
