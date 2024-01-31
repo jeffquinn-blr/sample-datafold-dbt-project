@@ -1,0 +1,6 @@
+models:
+  - name: test_model
+    columns:
+      - name: recordnumber
+        meta:
+          primary-key: true

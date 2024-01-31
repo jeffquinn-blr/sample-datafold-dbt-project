@@ -33,7 +33,7 @@ jobs:
       - name: Install Datafold SDK
         run: pip install -q datafold-sdk
       - name: Upload dbt artifacts to Datafold
-        run: datafold dbt upload --ci-config-id 337 --run-type production --target-folder './dbt/target' --commit-sha ${GIT_SHA}
+        run: datafold dbt upload --ci-config-id 341 --run-type pull_request --target-folder './dbt/target' --commit-sha ${GIT_SHA}
         env:
           DATAFOLD_APIKEY: ${{ secrets.DATAFOLD_API_KEY }}
           DATAFOLD_API_KEY: ${{ secrets.DATAFOLD_API_KEY }}

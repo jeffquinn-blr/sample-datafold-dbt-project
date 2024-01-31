@@ -1,1 +1,1 @@
-select * from {{ source('default', 'data') }}
+select * from {{ source('default', 'zipcodes') }}
