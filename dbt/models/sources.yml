@@ -4,3 +4,4 @@ sources:
     schema: public
     tables:
       - name: data
+      - name: zipcodes
