@@ -1,5 +1,3 @@
-sources: [version: 2
-
 sources:
   - name: default
     database: test
